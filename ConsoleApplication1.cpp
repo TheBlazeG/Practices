@@ -134,18 +134,19 @@ int askNumber(string question, int a, int b)
     int number = 0;
     string input;
     bool isValid = true;
+    bool isRangeValid;
     do
     {
 
-
+        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         do
         {
             cout << question << "entre " << a << " y " << b << endl;
-            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            
             getline(cin, input);
             for (char c : input)
             {
-                if (isdigit(c))
+                if (!isdigit(c))
                 {
                     isValid = false;
                     break;
@@ -156,10 +157,15 @@ int askNumber(string question, int a, int b)
 
                 cout << "\n Entrada inválida, por favor solo ingresa números." << endl;
             }
+            else
+            {
+ number = stoi(input);
+ isRangeValid = number <= b && number >= a;
+            }
 
         } while (!isValid || input.empty());
         //number > a || number < b ||
-        number = stoi(input);
+       
         cout << number << endl;
     } while (number > a || number < b);
     return stoi(input);
