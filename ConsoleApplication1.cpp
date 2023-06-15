@@ -163,7 +163,7 @@ int askNumber(string question, int a, int b)
  isRangeValid = number <= b && number >= a;
             }
 
-        } while (!isValid || input.empty());
+        } while (!isValid || input.empty() && isRangeValid);
         //number > a || number < b ||
        
         cout << number << endl;
