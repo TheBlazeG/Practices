@@ -28,6 +28,7 @@ int askNumber(string question, int a, int b);
 void itemreplace(vector<string>& InventoryVector, string objectinput);
 void SpaceBuy(vector<string>& InventoryVector, unsigned int& Resource, string founditem);
 void inventorypractice();
+void swapP(const int* a, const int* b);
 
 int main()
 {
@@ -35,11 +36,74 @@ int main()
     int score = 1000;
     int* pscore = &score;
 
-    cout << &score << endl;//dirección
+    cout << &score << endl;//000000FE48D9F584
     cout << pscore << endl;
 
     cout << score << endl;//1000
     cout << *pscore << endl;
+
+    score += 500;
+    cout << score << endl;//1500
+    cout << *pscore << endl;
+
+    score += 500;
+    cout << score << endl;//2000
+    cout << *pscore << endl;
+
+    //NEWSCORE
+    cout << "NewScore" << endl;
+    int newScore = 5000;
+    pscore = &newScore; 
+
+    cout << *pscore<<endl;//5000
+    cout << newScore<<endl;
+
+    cout << &newScore << endl;//000000FE48D9F584
+    cout << pscore << endl;
+
+
+    //string
+    string str = "Score";
+    string* pStr = &str;
+
+    cout << *pStr << endl;//Score
+    cout << str << endl;
+
+    cout << str.size() << endl;//5
+    cout << (*pStr).size() << endl;
+    cout << pStr->size() << endl;
+
+    //Constant pointer
+    int lives = 5;
+    int* const pLives = &lives;
+
+    //NOT Valid
+    //int maxlives=10;
+    //plives=&maxlives;
+
+    //pointer to constant
+    const int* pNumber;
+
+    int defense = 32;
+
+    pNumber = &defense;
+
+    defense *= 2;
+    cout << defense << endl;
+    cout << *pNumber << endl;
+    //*pNumber *= 2;
+
+    int Bonus=40;
+    const int* const pBonus = &Bonus;
+    const int* pcLives = &lives;
+    cout << pcLives << endl;
+    cout << pNumber << endl;
+    
+    //ejercicio
+    swapP(pNumber, pcLives);
+    cout << pcLives << endl;
+    cout << pNumber << endl;
+
 }
 
 string GetRandomItem(vector<string>& items)
@@ -93,8 +157,7 @@ int askNumber(string question, int a, int b)
 {
     int number = 0;
     string input;
-    bool isValid;
-    bool isValid = true;
+    bool isVvalid = true;
     bool isRangeValid;
     do
     {
@@ -109,11 +172,11 @@ int askNumber(string question, int a, int b)
             {
                 if (!isdigit(c))
                 {
-                    isValid = false;
+                    isVvalid = false;
                     break;
                 }
             }
-            if (!isValid)
+            if (!isVvalid)
             {
                 cout << "\n Entrada inválida, por favor solo ingresa números." << endl;
             }
@@ -123,7 +186,7 @@ int askNumber(string question, int a, int b)
  isRangeValid = number <= b && number >= a;
             }
 
-        } while (!isValid || input.empty() && isRangeValid);
+        } while (!isVvalid || input.empty() && isRangeValid);
         //number > a || number < b ||
         number = stoi(input);
        
@@ -576,7 +639,7 @@ void inventorypractice()
 {
     unsigned int gems = 8;
 
-    int space;
+    int space=0;
 
     bool isContinue;
     //items
@@ -624,7 +687,12 @@ void inventorypractice()
         isContinue = AskYesNo("¿Quieres seguir explorando?");
     } while (isContinue);
 }
-
+void swapP(const int* a, const int* b)
+{
+    const int* pedro = a;
+    a = b;
+    b = pedro;
+}
 // Ejecutar programa: Ctrl + F5 o menú Depurar > Iniciar sin depurar
 // Depurar programa: F5 o menú Depurar > Iniciar depuración
 
